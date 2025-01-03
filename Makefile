@@ -10,10 +10,14 @@ clean: $(SUBDIR)	# clean-up environment
 	@find . -name '*.sw[po]' -delete
 
 test:				# run test
+	go test -v ./...
 
 run:				# run in the local environment
+	go run cmd/rt/main.go
 
 build:				# build the binary/library
+	go mod tidy
+	go build -o bin/rt -ldflags "-w -s" cmd/rt/main.go
 
 upgrade:			# upgrade all the necessary packages
 	pre-commit autoupdate
