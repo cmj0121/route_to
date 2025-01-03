@@ -27,4 +27,4 @@ WORKDIR /app
 
 COPY --from=builder /app/rto /usr/local/bin/rto
 
-CMD ["/usr/local/bin/rto", "-vv"]
+CMD ["/usr/local/bin/rto", "-vv", "--cors"]
