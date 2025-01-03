@@ -15,11 +15,11 @@ test:				# run test
 	gofmt -w -s $(SRC)
 
 run:				# run in the local environment
-	go run cmd/rt/main.go -vv
+	go run cmd/rto/main.go -vv
 
 build:				# build the binary/library
 	go mod tidy
-	go build -o bin/rt -ldflags "-w -s" cmd/rt/main.go
+	go build -o bin/rto -ldflags "-w -s" cmd/rto/main.go
 
 upgrade:			# upgrade all the necessary packages
 	pre-commit autoupdate

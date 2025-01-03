@@ -1,0 +1,8 @@
+services:
+  rto:
+    platform: linux/amd64
+    build:
+      context: ../
+      dockerfile: deployments/Dockerfile
+    ports:
+      - "8080:8080"
