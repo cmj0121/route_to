@@ -18,6 +18,8 @@ import (
 // The main instance of the RouteTo struct and used to launch the service.
 type RouteTo struct {
 	Verbose int `short:"v" type:"counter" help:"Set the verbose level of the command."`
+
+	CORS bool `help:"Enable the CORS for the service."`
 }
 
 // Create a new instance of the RouteTo struct with the default values.
@@ -86,6 +88,7 @@ func (r *RouteTo) serve(c *gin.Context) {
 				c.Header(key, value)
 			}
 		}
+		r.postServe(c)
 
 		if _, err := io.Copy(c.Writer, response.Body); err != nil {
 			log.Error().Err(err).Msg("failed to copy the response")
@@ -97,6 +100,17 @@ func (r *RouteTo) serve(c *gin.Context) {
 	default:
 		log.Error().Err(err).Msg("failed to send the request")
 		c.Status(http.StatusInternalServerError)
+	}
+}
+
+func (r *RouteTo) postServe(c *gin.Context) {
+	if r.CORS {
+		log.Debug().Msg("setting the CORS header")
+
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Methods", "*")
+		c.Header("Access-Control-Allow-Headers", "*")
+		c.Header("Access-Control-Max-Age", "86400")
 	}
 }
 
