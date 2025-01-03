@@ -1,3 +1,4 @@
+SRC    := $(shell find . -name '*.go')
 SUBDIR :=
 
 .PHONY: all clean test run build upgrade help $(SUBDIR)
@@ -11,9 +12,10 @@ clean: $(SUBDIR)	# clean-up environment
 
 test:				# run test
 	go test -v ./...
+	gofmt -w -s $(SRC)
 
 run:				# run in the local environment
-	go run cmd/rt/main.go
+	go run cmd/rt/main.go -vv
 
 build:				# build the binary/library
 	go mod tidy

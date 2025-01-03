@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/rs/zerolog/log"
 	"github.com/cmj0121/route_to"
+	"github.com/rs/zerolog/log"
 )
 
 func main() {
