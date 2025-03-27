@@ -9,7 +9,15 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+// The interface for the HTTP client and used to make the requests and make
+// the function testable.
+type HTTPClient interface {
+	Do(*http.Request) (*http.Response, error)
+}
 
+var (
+	default_client HTTPClient = &http.Client{}
+)
 
 func (r *RouteTo) Server() *http.Server {
 	gin.SetMode(gin.ReleaseMode)
@@ -30,8 +38,7 @@ func (r *RouteTo) serve(c *gin.Context) {
 		return
 	}
 
-	client := &http.Client{}
-	switch response, err := client.Do(request); err {
+	switch response, err := default_client.Do(request); err {
 	case nil:
 		defer response.Body.Close()
 

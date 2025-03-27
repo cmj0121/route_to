@@ -55,6 +55,7 @@ func (r *RouteTo) run() error {
 	log.Info().Msg("shutting down the service ...")
 	return svc.Shutdown(ctx)
 }
+
 // setup everything before running the command
 func (r *RouteTo) prologue() {
 	// setup the logger
